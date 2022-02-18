@@ -1,0 +1,23 @@
+﻿  SteamNetwork.cpp
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(45): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(47): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(161): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\stdio.h(1939): note: voir la déclaration de '_snprintf'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(246): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+d:\ludus academie\visualsteamworksc3\steamworksludus\steamworksludus\steamnetwork.cpp(398): warning C4018: '<' : incompatibilité signed/unsigned
+  SteamWorksLudus.cpp
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(45): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(47): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(161): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\stdio.h(1939): note: voir la déclaration de '_snprintf'
+d:\ludus academie\visualsteamworksc3\steamworksludus\headerfiles\matchmakingtypes.h(246): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.19041.0\ucrt\string.h(334): note: voir la déclaration de 'strncpy'
+  Génération de code en cours...
+d:\ludus academie\visualsteamworksc3\steamworksludus\steamworksludus\steamnetwork.cpp(196): warning C4715: 'SteamNetwork::get_friend_steamid_by_index' : les chemins de contrôle ne retournent pas tous une valeur
+d:\ludus academie\visualsteamworksc3\steamworksludus\steamworksludus\steamnetwork.cpp(248): warning C4715: 'SteamNetwork::get_member_steamid_from_lobby' : les chemins de contrôle ne retournent pas tous une valeur
+  SteamWorksLudus.vcxproj -> D:\LUDUS ACADEMIE\VisualSteamworksC3\SteamWorksLudus\Debug\SteamWorksLudus.exe
