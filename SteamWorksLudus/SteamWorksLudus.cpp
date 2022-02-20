@@ -12,17 +12,20 @@ int main()
 {
     cout << endl;
 
-    steam_network.display_user_information();
-    //steam_network.open_overlay("steamid"); // ActivateGameOverlay will not work and callbacks will never be called due to project console application
-    steam_network.display_friends();
+    if (steam_network.get_steam_status() == 0) {
+        steam_network.display_user_information();
+        steam_network.display_friends();
+        //steam_network.open_overlay("steamid"); // ActivateGameOverlay will not work and callbacks will never be called due to project console application
 
-    //steam_network.create_lobby(k_ELobbyTypePublic, 5);
-    //steam_network.search_lobbies();
-    //steam_network.leave_lobby();
+        steam_network.create_lobby(k_ELobbyTypePublic, 5); //Then give the CSteamID to the other person, PUBLIC Lobby, Max 5 members
+        steam_network.search_lobbies();
+        steam_network.leave_lobby();
 
-    steam_network.join_lobby(109775241108934510);
+        //steam_network.join_lobby(109775241108934510); //Remplace this <magic-number> by the CSteamID of the lobby to join
 
-    _process();
+        _process();
+    }
+
     return 0;
 }
 

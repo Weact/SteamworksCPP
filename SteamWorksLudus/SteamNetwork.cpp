@@ -4,13 +4,15 @@ using namespace std;
 //CONSTRUCTOR
 SteamNetwork::SteamNetwork()
 {
-	SteamNetwork::init();
+	this->steam_status = SteamNetwork::init();
 
-	//Set user steamid with SteamUser api
-	set_csteamid();
+	if (this->steam_status != 1) {
+		//Set user steamid with SteamUser api
+		set_csteamid();
 
-	//Set user name with SteamFriends api
-	set_steam_username();
+		//Set user name with SteamFriends api
+		set_steam_username();
+	}
 }
 
 //DESTRUCTOR
@@ -53,28 +55,32 @@ int SteamNetwork::init()
 // This method will never works because the projet is on a Console Application
 void SteamNetwork::open_overlay(const char * pchDialog)
 {
-	if (SteamFriends() == nullptr) {
-		cout << "Error, SteamFriends not initialized in SteamNetwork::open_overlay" << endl;
-		return;
+	if (this->steam_status == 0) {
+		if (SteamFriends() == nullptr) {
+			cout << "Error, SteamFriends not initialized in SteamNetwork::open_overlay" << endl;
+			return;
+		}
+		SteamFriends()->ActivateGameOverlay(pchDialog);
 	}
-	SteamFriends()->ActivateGameOverlay(pchDialog);
 }
 
 void SteamNetwork::display_user_information()
 {
-	uint64 steamid64 = get_steam_id64();
-	const char* steamname = get_steam_username();
+	if (this->steam_status == 0) {
+		uint64 steamid64 = get_steam_id64();
+		const char* steamname = get_steam_username();
 
-	if (steamid64 <= 0 or steamname == "") { // steam id 64 should never be 0 or under and steamname should never be nothing
-		cout << "Error, could not get steamid or username in SteamNetwork::display_user_information" << endl;
-		return;
+		if (steamid64 <= 0 or steamname == "") { // steam id 64 should never be 0 or under and steamname should never be nothing
+			cout << "Error, could not get steamid or username in SteamNetwork::display_user_information" << endl;
+			return;
+		}
+
+		//Debug message to print user's steamid64 ; can be check on https://steamid.io/lookup (enter your steam nickname)
+		cout << steamid64 << endl;
+
+		//Debug message to print user's nickname ;
+		cout << steamname << endl;
 	}
-
-	//Debug message to print user's steamid64 ; can be check on https://steamid.io/lookup (enter your steam nickname)
-	cout << steamid64 << endl;
-
-	//Debug message to print user's nickname ;
-	cout << steamname << endl;
 }
 
 //STEAMID ACCESSORS
@@ -137,6 +143,11 @@ const int SteamNetwork::get_friends_count() {
 		return friendsCount;
 	}
 	return 0;
+}
+
+int SteamNetwork::get_steam_status()
+{
+	return this->steam_status;
 }
 
 CSteamID* SteamNetwork::get_friends()
@@ -248,16 +259,20 @@ CSteamID SteamNetwork::get_member_steamid_from_lobby(CSteamID lobbyID, CSteamID 
 }
 
 void SteamNetwork::create_lobby(ELobbyType lobby_type, int max_members) {
-	if ( (lobby_type == k_ELobbyTypePrivate || lobby_type == k_ELobbyTypeFriendsOnly || lobby_type == k_ELobbyTypePublic || lobby_type == k_ELobbyTypeInvisible) && max_members < 251) {
-		SteamMatchmaking()->CreateLobby(lobby_type, max_members);
-	}
-	else {
-		cout << "Error, could not create lobby" << endl;
+	if (SteamMatchmaking() != nullptr) {
+		if ( (lobby_type == k_ELobbyTypePrivate || lobby_type == k_ELobbyTypeFriendsOnly || lobby_type == k_ELobbyTypePublic || lobby_type == k_ELobbyTypeInvisible) && max_members < 251) {
+			SteamMatchmaking()->CreateLobby(lobby_type, max_members);
+		}
+		else {
+			cout << "Error, could not create lobby" << endl;
+		}
 	}
 }
 void SteamNetwork::search_lobbies() {
-	SteamMatchmaking()->AddRequestLobbyListDistanceFilter(k_ELobbyDistanceFilterClose);
-	SteamMatchmaking()->RequestLobbyList();
+	if (SteamMatchmaking() != nullptr) {
+		SteamMatchmaking()->AddRequestLobbyListDistanceFilter(k_ELobbyDistanceFilterClose);
+		SteamMatchmaking()->RequestLobbyList();
+	}
 
 }
 
@@ -272,13 +287,15 @@ void SteamNetwork::join_lobby(uint64 lobby_id64) {
 	SteamMatchmaking()->JoinLobby(lobbyID);
 }
 void SteamNetwork::leave_lobby() {
-	CSteamID lobbyID = get_current_lobby_csteamid();
-	if (get_current_lobby_csteamid().ConvertToUint64() <= 0) {
-		cout << endl << "Error, could not find lobby " << lobbyID.ConvertToUint64() << " in SteamNetwork::leave_lobby" << endl;
-		return;
-	}
+	if (SteamMatchmaking() != nullptr) {
+		CSteamID lobbyID = get_current_lobby_csteamid();
+		if (get_current_lobby_csteamid().ConvertToUint64() <= 0) {
+			//cout << endl << "Error, could not find lobby " << lobbyID.ConvertToUint64() << " in SteamNetwork::leave_lobby" << endl; //DEBUG Message
+			return;
+		}
 
-	SteamMatchmaking()->LeaveLobby(lobbyID);
+		SteamMatchmaking()->LeaveLobby(lobbyID);
+	}
 }
 
 void SteamNetwork::display_lobby_information(CSteamID lobbyID) {

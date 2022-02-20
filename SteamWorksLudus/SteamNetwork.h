@@ -14,6 +14,9 @@ public:
 	void display_user_information();
 	void message_received_callback_auto_reply(GameConnectedFriendChatMsg_t* pCallBack, char* received_msg, const char* msg);
 
+	//STATUS ACCESSORS
+	int get_steam_status();
+
 	//FRIENDS
 	const char* get_friend_name(CSteamID friendID, bool from_lobby);
 	CSteamID get_friend_steamid_by_index(int friendIndex);
@@ -57,6 +60,10 @@ private:
 	STEAM_CALLBACK(SteamNetwork, _CB_on_lobby_chat_updated, LobbyChatUpdate_t); //Trigger when a lobby chat room state has changed (user joined/left lobby)
 	STEAM_CALLBACK(SteamNetwork, _CB_on_lobby_match_list, LobbyMatchList_t); //Trigger when requesting lobby list
 
+	//STEAM STATUS
+	int steam_status = 0;
+
+	//STEAM USER
 	CSteamID CUSER_STEAMID;
 	uint64 USER_STEAMID64;
 	const char* USER_STEAMNAME = "";
